@@ -49,16 +49,28 @@ public abstract class Cell{
         return null;
     }
 
-    //Finds where to put Point to make a cell with a specified width, height, and Direction that connects to a target Edge
+    //Finds where to put Point to make a cell with a specified width and height that faces a Direction that connects to a target Edge
     public static Point convertToPlot(Edge target, int width, int height, Direction d){
         if(getOpposite(target.getDirection())!=d)return null;
-        switch(d){
-            case NORTH: return new Point((int)target.getStart().getX(), (int)target.getStart().getY()+1);
-            case EAST:
-            case SOUTH:
-            case WEST:
+        int targetX,targetY;
+        if(target.getOrientation()==Orientation.HORIZONTAL){
+            if(width>target.getXLength())return null;
+            targetX=(target.getXLength()-width)/2;
+            if(d==Direction.NORTH){
+                targetY=(int)target.getStart().getY()+1;
+            }else{
+                targetY=(int)target.getStart().getY()-height;
+            }
+        }else{
+            if(height>target.getYLength())return null;
+            targetY=(target.getYLength()-height)/2;
+            if(d==Direction.EAST){
+                targetX=(int)target.getStart().getX()-width;
+            }else{
+                targetX=(int)target.getStart().getX()+1;
+            }
         }
-        return null;
+        return new Point(targetX, targetY);
     }
 
     public boolean contains(Point p){

@@ -13,14 +13,12 @@ from that room, each hallway will generate 333 rooms, using the same strategy
  */
 public class GeneratorSeed {
     //Total rooms, rooms left to generate on branch, number of remainder rooms to generate due to integer division
-    private int totalRoomsToGenerate, branchRoomsLeft, branchOverflow, minHalls, maxHalls, minBossroom, maxBossroom, minRoomHalls, maxRoomHalls;
-    private Direction[] restrictedDirections;
+    private int totalRoomsToGenerate, branchRoomsLeft, branchOverflow, minHalls, maxHalls, minBossroom, maxBossroom, minRoomHalls, maxRoomHalls, roomsGenerated=0;
     //Defines the current set of rooms on the current recursive branch
     private ArrayList<Cell> currentBranch=new ArrayList<>();
 
-    GeneratorSeed(int numRooms, int minHalls, int maxHalls, int minBoss, int maxBoss, int minRoomHalls, int maxRoomHalls, Direction[] restrictedDirections){
+    GeneratorSeed(int numRooms, int minHalls, int maxHalls, int minBoss, int maxBoss, int minRoomHalls, int maxRoomHalls){
         totalRoomsToGenerate=numRooms;
-        this.restrictedDirections=restrictedDirections;
         this.maxBossroom=maxBoss;
         this.minBossroom=minBoss;
         this.maxHalls=maxHalls;
