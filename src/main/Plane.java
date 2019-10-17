@@ -5,7 +5,7 @@ import roomUtils.Cell;
 import java.awt.*;
 import java.util.ArrayList;
 
-class Plane {
+public class Plane {
     private static int camX=0,camY=0;
     private static int boxSize=25;
     private static ArrayList<Cell> cells=new ArrayList<>();
@@ -25,8 +25,8 @@ class Plane {
         MainFrame.g.setColor(new Color(46, 46, 46));
         int xOff=-camX+camX%boxSize-boxSize;
         int yOff=-camY+camY%boxSize-boxSize;
-        int endXOff=Main.f.getWidth()-camX;
-        int endYOff=Main.f.getHeight()-camY;
+        int endXOff=Main.mainFrame.getWidth()-camX;
+        int endYOff=Main.mainFrame.getHeight()-camY;
         for(int i=xOff;i<endXOff;i+=boxSize)
             MainFrame.g.drawLine(i,yOff,i,endYOff);
         for(int i=yOff;i<endYOff;i+=boxSize)
@@ -81,7 +81,7 @@ class Plane {
         return boxSize;
     }
 
-    static ArrayList<Cell> getCells() {
+    public static ArrayList<Cell> getCells() {
         return cells;
     }
 

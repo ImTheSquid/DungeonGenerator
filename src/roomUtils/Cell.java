@@ -2,10 +2,6 @@ package roomUtils;
 
 import java.awt.*;
 
-enum Orientation{
-    VERTICAL, HORIZONTAL
-}
-
 public abstract class Cell{
     Point pos;
     Color c;
@@ -50,20 +46,20 @@ public abstract class Cell{
     }
 
     //Finds where to put Point to make a cell with a specified width and height that faces a Direction that connects to a target Edge
-    public static Point convertToPlot(Edge target, int width, int height, Direction d){
-        if(getOpposite(target.getDirection())!=d)return null;
+    public static Point convertToPlot(Edge target, int width, int height){
+        Direction d=getOpposite(target.getDirection());
         int targetX,targetY;
         if(target.getOrientation()==Orientation.HORIZONTAL){
-            if(width>target.getXLength())return null;
-            targetX=(target.getXLength()-width)/2;
+            //if(width>target.getXLength())return null;
+            targetX=Math.abs(target.getXLength()-width)/2;
             if(d==Direction.NORTH){
                 targetY=(int)target.getStart().getY()+1;
             }else{
                 targetY=(int)target.getStart().getY()-height;
             }
         }else{
-            if(height>target.getYLength())return null;
-            targetY=(target.getYLength()-height)/2;
+            //if(height>target.getYLength())return null;
+            targetY=Math.abs(target.getYLength()-height)/2;
             if(d==Direction.EAST){
                 targetX=(int)target.getStart().getX()-width;
             }else{
@@ -87,5 +83,9 @@ public abstract class Cell{
             case WEST: return Direction.EAST;
         }
         return null;
+    }
+
+    public static Orientation dirToOri(Direction d){
+        return d==Direction.NORTH||d==Direction.SOUTH?Orientation.VERTICAL:Orientation.HORIZONTAL;
     }
 }

@@ -1,8 +1,8 @@
 package main;
 
 import generation.Generator;
-import roomUtils.Cell;
-import roomUtils.Room;
+import generation.seed.GeneratorSeed;
+import roomUtils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,7 +56,12 @@ public class MainFrame extends Canvas implements Runnable{
         resizePlane(getWidth(), getHeight());
 
         //Test code
-        Plane.getCells().add(new Room(new Point(0,0),Color.BLUE,16,9));
+        Room r=new Room(new Point(0,0),Color.BLUE,15,9);
+        Plane.getCells().add(r);
+        Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.NORTH),5,9), Color.RED, Orientation.VERTICAL));
+        Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.SOUTH),5,9), Color.RED, Orientation.VERTICAL));
+        Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.EAST),9,5), Color.RED, Orientation.HORIZONTAL));
+        //Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.WEST),9,5), Color.RED, Orientation.HORIZONTAL));
     }
 
     private JMenuBar generateMenus(){
@@ -89,6 +94,7 @@ public class MainFrame extends Canvas implements Runnable{
         resetPos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                Plane.setSingleSelect(true);
                 Plane.setSelectedPoint(new Point(0,0));
                 resizePlane(getWidth(), getHeight());
             }
@@ -99,7 +105,7 @@ public class MainFrame extends Canvas implements Runnable{
     }
 
     //Centers selected point on screen
-    private void resizePlane(int width, int height){
+    void resizePlane(int width, int height){
         Plane.setCamX(width/2-(int)Plane.getSelectedPoint().getX()*Plane.getBoxSize());
         Plane.setCamY(height/2-(int)Plane.getSelectedPoint().getY()*Plane.getBoxSize());
     }
@@ -147,7 +153,6 @@ public class MainFrame extends Canvas implements Runnable{
         for(Cell c:Plane.getCells()){
             c.update();
         }
-        //System.out.println("Current camera pos: "+Plane.getCamX()+","+Plane.getCamY());
     }
 
     private void render(){

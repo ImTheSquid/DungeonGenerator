@@ -1,8 +1,12 @@
 package generation.seed;
 
+import main.Plane;
 import roomUtils.Cell;
 import roomUtils.Direction;
+import roomUtils.Hallway;
+import roomUtils.Orientation;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -29,6 +33,20 @@ public class GeneratorSeed {
 
     public void stepGenerator(){
 
+    }
+
+    private void generateRooms(int roomsToGenerate){
+        if(roomsToGenerate==0)return;
+        int hallsToGenerate=(int)(Math.random()*(maxRoomHalls-minRoomHalls))+minRoomHalls;
+        generateRooms(roomsToGenerate/hallsToGenerate);
+    }
+
+    private static void generateHallways(int num, Cell source, Direction dest){
+        if(num==0)return;
+        int[] dims=Hallway.getDims(Cell.dirToOri(dest));
+        Hallway h=new Hallway(Cell.convertToPlot(source.getEdgeConnection(dest), dims[0], dims[1]), Color.WHITE, Cell.dirToOri(dest));
+        Plane.getCells().add(h);
+        generateHallways(num-1, h, dest);
     }
 
     public boolean isFinished(){

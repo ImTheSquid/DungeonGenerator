@@ -22,11 +22,11 @@ public class Edge {
     }
 
     public int getXLength(){
-        return (int) Math.abs(start.getX()-end.getX());
+        return (int) Math.abs(start.getX()-end.getX())+1;
     }
 
     public int getYLength(){
-        return (int) Math.abs(start.getY()-end.getY());
+        return (int) Math.abs(start.getY()-end.getY())+1;
     }
 
     public boolean canConnect(Edge e){

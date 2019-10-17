@@ -1,6 +1,6 @@
 package main;
 
 public class Main {
-    static MainFrame f=new MainFrame();
+    static MainFrame mainFrame =new MainFrame();
     public static void main(String[] args) {}
 }
