@@ -2,6 +2,7 @@ package main;
 
 import generation.Generator;
 import generation.seed.GeneratorSeed;
+import generation.seed.SeedFactory;
 import roomUtils.*;
 
 import javax.swing.*;
@@ -56,12 +57,24 @@ public class MainFrame extends Canvas implements Runnable{
         resizePlane(getWidth(), getHeight());
 
         //Test code
+        //testCode();
+        GeneratorSeed g= SeedFactory.getDefault(1);
+        g.stepGenerator();
+
+    }
+
+    private void testCode(){
         Room r=new Room(new Point(0,0),Color.BLUE,15,9);
         Plane.getCells().add(r);
-        Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.NORTH),5,9), Color.RED, Orientation.VERTICAL));
+        Hallway h=new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.NORTH),5,9), Color.RED, Orientation.VERTICAL);
+        Plane.getCells().add(h);
+        Hallway hEast=new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.WEST),9,5), Color.RED, Orientation.HORIZONTAL);
         Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.SOUTH),5,9), Color.RED, Orientation.VERTICAL));
-        Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.EAST),9,5), Color.RED, Orientation.HORIZONTAL));
-        //Plane.getCells().add(new Hallway(Cell.convertToPlot(r.getEdgeConnection(Direction.WEST),9,5), Color.RED, Orientation.HORIZONTAL));
+        Plane.getCells().add(hEast);
+
+        Room ro=new Room(Cell.convertToPlot(hEast.getEdgeConnection(Direction.WEST), 15, 5), Color.WHITE, 15, 9);
+        Plane.getCells().add(ro);
+
     }
 
     private JMenuBar generateMenus(){
@@ -110,7 +123,7 @@ public class MainFrame extends Canvas implements Runnable{
         Plane.setCamY(height/2-(int)Plane.getSelectedPoint().getY()*Plane.getBoxSize());
     }
 
-    //Game loop
+    //Game loopEAST
     public void run(){
         lastUpdateTime=System.nanoTime();
         int fps=0;

@@ -46,22 +46,22 @@ public abstract class Cell{
     }
 
     //Finds where to put Point to make a cell with a specified width and height that faces a Direction that connects to a target Edge
-    public static Point convertToPlot(Edge target, int width, int height){
+    public static Point convertToPlot(Edge target, int newCellWidth, int newCellHeight){
         Direction d=getOpposite(target.getDirection());
         int targetX,targetY;
         if(target.getOrientation()==Orientation.HORIZONTAL){
             //if(width>target.getXLength())return null;
-            targetX=Math.abs(target.getXLength()-width)/2;
+            targetX=Math.abs(target.getXLength()-newCellWidth)/2;
             if(d==Direction.NORTH){
                 targetY=(int)target.getStart().getY()+1;
             }else{
-                targetY=(int)target.getStart().getY()-height;
+                targetY=(int)target.getStart().getY()-newCellHeight;
             }
         }else{
             //if(height>target.getYLength())return null;
-            targetY=Math.abs(target.getYLength()-height)/2;
+            targetY=Math.abs(target.getYLength()-newCellHeight)/2;
             if(d==Direction.EAST){
-                targetX=(int)target.getStart().getX()-width;
+                targetX=(int)target.getStart().getX()-newCellWidth;
             }else{
                 targetX=(int)target.getStart().getX()+1;
             }

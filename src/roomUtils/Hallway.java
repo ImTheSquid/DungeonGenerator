@@ -10,15 +10,16 @@ public class Hallway extends Cell{
     Hallway(Point pos, Orientation o) {
         super(pos);
         orientation=o;
+        init();
     }
 
     public Hallway(Point pos, Color c, Orientation o) {
         super(pos, c);
         orientation=o;
+        init();
     }
 
-    @Override
-    public void update() {
+    private void init(){
         if(orientation==Orientation.HORIZONTAL){
             width=9;
             height=5;
@@ -26,6 +27,11 @@ public class Hallway extends Cell{
             width=5;
             height=9;
         }
+    }
+
+    @Override
+    public void update() {
+
     }
 
     @Override
@@ -48,7 +54,7 @@ public class Hallway extends Cell{
         return orientation;
     }
 
-    @Override
+    /*@Override
     public Edge getEdgeConnection(Direction d) {
         if(orientation==Orientation.VERTICAL){
             if(d==Direction.EAST||d==Direction.WEST) return null;
@@ -56,7 +62,7 @@ public class Hallway extends Cell{
             if(d==Direction.NORTH||d==Direction.SOUTH) return null;
         }
         return super.getEdgeConnection(d);
-    }
+    }*/
 
     public static int[] getDims(Orientation o){
         return o==Orientation.HORIZONTAL?new int[]{9,5}:new int[]{5,9};

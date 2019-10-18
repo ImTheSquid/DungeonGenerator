@@ -4,11 +4,13 @@ import roomUtils.Cell;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Plane {
     private static int camX=0,camY=0;
     private static int boxSize=25;
-    private static ArrayList<Cell> cells=new ArrayList<>();
+    private static ConcurrentLinkedQueue<Cell> cells=new ConcurrentLinkedQueue<>();
     private static Point selectedPoint=new Point(0,0);
     private static Cell selectedCell=null;
     //Whether or not to auto-select multiple cells at once
@@ -81,7 +83,7 @@ public class Plane {
         return boxSize;
     }
 
-    public static ArrayList<Cell> getCells() {
+    public static ConcurrentLinkedQueue<Cell> getCells() {
         return cells;
     }
 
